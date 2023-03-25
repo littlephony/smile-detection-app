@@ -1,10 +1,4 @@
-import io
-
-import torch
-from torchvision import transforms
-from torch import nn
-from PIL import Image
-
+import torch.nn as nn
 
 class SmileClassificationNet(nn.Module):
     def __init__(self):
@@ -44,18 +38,3 @@ class SmileClassificationNet(nn.Module):
 
     def forward(self, x):
         return self.classifier(x)
-    
-
-def tranform_image(image_bytes):
-    transform = transforms.Compose([
-        transforms.Resize(255),
-        transforms.CenterCrop(178),
-        transforms.Resize(64),
-        transforms.ToTensor(),
-    ])
-
-    image = Image.open(io.BytesIO(image_bytes))
-
-    return transform(image).unsqueeze(0)
-
-

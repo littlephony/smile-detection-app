@@ -1,6 +1,9 @@
+import io
+
 from flask import Flask
 import torch
-
+from torchvision import transforms
+from PIL import Image
 from model import SmileClassificationNet
 
 
@@ -8,6 +11,25 @@ app = Flask(__name__)
 model = SmileClassificationNet()
 model.load_state_dict(torch.load('../model/model.pt', map_location='cpu'))
 
+
+def transform_image(image_bytes):
+    transform = transforms.Compose([
+        transforms.Resize(255),
+        transforms.CenterCrop(178),
+        transforms.Resize(64),
+        transforms.ToTensor(),
+    ])
+
+    image = Image.open(io.BytesIO(image_bytes))
+
+    return transform(image).unsqueeze(0)
+
+
+def get_prediction(image_bytes):
+    image_tensor = transform_image(image_bytes)
+    proba = model(image_tensor)
+    return proba
+    
 
 @app.route('/')
 def hello():
