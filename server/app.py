@@ -14,7 +14,6 @@ model.load_state_dict(torch.load('../model/model.pt', map_location='cpu'))
 
 def transform_image(image_bytes):
     transform = transforms.Compose([
-        transforms.Resize(255),
         transforms.CenterCrop(178),
         transforms.Resize(64),
         transforms.ToTensor(),
@@ -36,7 +35,7 @@ def hello():
     return redirect(url_for('/api/predict'))
 
 
-@app.route('/api/predict')
+@app.route('/api/predict', methods=['POST'])
 def predict():
     if request.method == 'POST':
         file = request.files['file']
