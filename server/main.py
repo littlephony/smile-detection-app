@@ -1,6 +1,6 @@
 import io
 
-from flask import Flask
+from flask import Flask, url_for, redirect, jsonify, request
 import torch
 from torchvision import transforms
 from PIL import Image
@@ -33,4 +33,15 @@ def get_prediction(image_bytes):
 
 @app.route('/')
 def hello():
-    return 'Hello, World!'
+    return redirect(url_for('/api/predict'))
+
+
+@app.route('/api/predict')
+def predict():
+    if request.method == 'POST':
+        file = request.files['file']
+        image_bytes = file.read()
+        output = get_prediction(image_bytes)
+
+        return jsonify({'smile': output.item() > 0.5,
+                        'proba': output.item()})
