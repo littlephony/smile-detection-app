@@ -45,3 +45,6 @@ def predict():
 
         return jsonify({'smile': output.item() > 0.5,
                         'proba': output.item()})
+    
+if __name__ == '__main__':
+    app.run()
