@@ -14,6 +14,7 @@ model.load_state_dict(torch.load('../model/model.pt', map_location='cpu'))
 
 def transform_image(image_bytes):
     transform = transforms.Compose([
+        transforms.Resize(255),
         transforms.CenterCrop(178),
         transforms.Resize(64),
         transforms.ToTensor(),
