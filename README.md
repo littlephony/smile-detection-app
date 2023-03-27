@@ -28,7 +28,7 @@ I trained a convolutional neural network to recognize smiling faces using the Ce
 1. Clone the repository
 
   ```
-  $ git clone https://github.com/littlephony/language-modeling-app.git
+  $ git clone https://github.com/littlephony/smile-detection-app.git
   ```
 
 2. Install dependencies specified in `requirements.txt` in `server` directory:
