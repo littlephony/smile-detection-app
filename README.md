@@ -1,4 +1,7 @@
 # smile-detection-app
+
+![workflow badge](https://github.com/littlephony/smile-detection-app/actions/workflows/build.yml/badge.svg)
+
 A simple Flask app serving a PyTorch model for smile classification.
 
 ## Table of contents
